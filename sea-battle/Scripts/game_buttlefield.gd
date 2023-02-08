@@ -7,7 +7,6 @@ func _ready():
 func _on_Button_pressed():
 	
 	if GlobalVariables.selected_cell:
-		
 		GlobalVariables.selected_cell.disabled=true 
 		print("hit : "+str(GlobalVariables.selected_cell))
 		
