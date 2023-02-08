@@ -16,21 +16,22 @@ func _ready():
 			#where i is row and j is column
 			cell.set_name(str(i)+";"+str(j))
 			#cell.toggle_mode= true
-			cell.group=preload("res://groups/cell_buttongroup.tres")
+			#cell.group=preload("res://groups/cell_buttongroup.tres")
 			cell.set_theme(theme)
+			#change_button_function(cell,"place_ship")
 			cell.size_flags_horizontal = SIZE_FILL + SIZE_EXPAND
 			cell.size_flags_vertical = SIZE_FILL + SIZE_EXPAND
 			GlobalVariables.cells.append(cell)
 			add_child(cell)
 			
-	yield(get_tree(),"idle_frame")
 	set_place_ship_mode()
+	yield(get_tree(),"idle_frame")
 	print(self.rect_size)
 
 
 func set_place_ship_mode():
 	for i in GlobalVariables.cells:
-		change_button_function(i,"place_ship")
+		change_button_function(i,"place_ship") 
 
 
 func change_color(button: Button, color: Color):
