@@ -5,16 +5,19 @@ class_name Cell_changes
 
 
 
-func set_place_ship_theme(theme:Theme):
+func set_theme(buttons : Array,theme:Theme):
 	#var theme = preload(theme_path)
-	for i in GlobalVariables.cells:
+	
+	for i in buttons:
 		change_theme(i,theme)
 
 func change_theme(button : Button, theme: Theme):
 	button.set_theme(theme)
 
-
-func set_place_ship_mode(function : String):
+func get_coordinates(name : String):
+	return name.split(";")
+	
+func set_mode(function : String):
 	for i in GlobalVariables.cells:
 		change_button_function(i,function) 
 

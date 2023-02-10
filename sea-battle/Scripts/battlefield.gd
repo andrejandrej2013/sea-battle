@@ -29,8 +29,15 @@ func _ready():
 	#set_place_ship_mode()
 	yield(get_tree(),"idle_frame")
 	print(self.rect_size)
+	#print(self.get_children()==GlobalVariables.cells)
+	
+	#print(GlobalVariables.cells)
+	#_some_function()
 
 
 
-func _some_button_pressed(cell):
-	GlobalVariables.selected_cell=cell
+func _some_function():
+	print(get_tree())
+	print(get_tree().get_root())
+	print(get_tree().get_root().get_node("0;0"))
+	print(get_node("0;0").set_theme(preload("res://style/battelfield_cell_style.tres")))

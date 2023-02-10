@@ -8,8 +8,10 @@ script/source = "extends \"res://Scripts/cell_changes.gd\"
 
 
 func _ready():
-	set_place_ship_mode(\"place_ship\") # Replace with function body.
-	set_place_ship_theme(preload(\"res://style/battelfield_cell_style.tres\"))
+	GlobalVariables.cells=self.get_node(\"battlefield/GridContainer\").get_children()
+	#print(GlobalVariables.cells)
+	set_mode(\"place_ship\") # Replace with function body.
+	set_theme(GlobalVariables.cells,preload(\"res://style/battelfield_cell_style.tres\"))
 
 func place_ship(button : Button)->void:
 
@@ -62,13 +64,13 @@ func place_ship(button : Button)->void:
 
 
 
-func _on_Button_pressed():
+func _on_submit_pressed():
 	# need to change condition so that array would full empty 
 	if !GlobalVariables.mode.ships[GlobalVariables.mode.ships.keys()[-1]]:
 		#print(GlobalVariables.cells)
 		
-		print(\"horizontal_ships : \",GlobalVariables.horizontal_ships)
-		print(\"vertical_ships : \",GlobalVariables.vertical_ships)
+		#print(\"horizontal_ships : \",GlobalVariables.horizontal_ships)
+		#print(\"vertical_ships : \",GlobalVariables.vertical_ships)
 		get_tree().change_scene(\"res://Scenes/Game_field.tscn\")
 	else:
 		#add alert to user
@@ -128,5 +130,5 @@ margin_bottom = 1699.0
 text = "Rotate"
 script = SubResource( 2 )
 
-[connection signal="pressed" from="submit" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="submit" to="." method="_on_submit_pressed"]
 [connection signal="pressed" from="turn" to="turn" method="_on_turn_pressed"]

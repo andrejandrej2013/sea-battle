@@ -5,9 +5,10 @@ extends Node
 var selected_cell : Button
 #not shor where to save direction
 var direcation :=false
-var cells = []
-var horizontal_ships = []
-var vertical_ships = []
+var cells := []
+var horizontal_ships := []
+var vertical_ships := []
+var opponent_cells :=[]
 
 
 class Standard_mode_build:
