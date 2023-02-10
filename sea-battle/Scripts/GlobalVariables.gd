@@ -31,6 +31,8 @@ class Standard_mode_build:
 		return 0
 		
 
+var mode 
+
 
 var current_scene = null
 

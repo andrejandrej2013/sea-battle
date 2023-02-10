@@ -14,7 +14,16 @@ anchor_bottom = 1.0
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -500.0
-margin_top = 40.0
+margin_top = 150.0
 margin_right = 500.0
-margin_bottom = 1040.0
+margin_bottom = 1150.0
+script = ExtResource( 2 )
+
+[node name="battlefield2" parent="." instance=ExtResource( 1 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -497.0
+margin_top = -957.0
+margin_right = 503.0
+margin_bottom = 43.0
 script = ExtResource( 2 )

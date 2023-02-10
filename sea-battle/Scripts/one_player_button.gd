@@ -17,4 +17,4 @@ func _ready():
 
 
 func _on_one_player_button_pressed():
-	get_tree().change_scene("res://Scenes/Game_field.tscn")
+	get_tree().change_scene("res://Scenes/place_ships.tscn")

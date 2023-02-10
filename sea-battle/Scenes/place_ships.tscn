@@ -1,5 +1,132 @@
-[gd_scene format=2]
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/battlefield.tscn" type="PackedScene" id=1]
+[ext_resource path="res://style/style.tres" type="Theme" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends \"res://Scripts/cell_changes.gd\"
+
+
+func _ready():
+	set_place_ship_mode(\"place_ship\") # Replace with function body.
+	set_place_ship_theme(preload(\"res://style/battelfield_cell_style.tres\"))
+
+func place_ship(button : Button)->void:
+
+	#GlobalVariables.direcation :
+	#0 -> horizontal
+	#1 -> vertical
+	
+	#####
+	#	add function of removimg ship
+	#	change function of placement ships so that we could place different ships at any time but not by one order
+	#####
+	if !GlobalVariables.mode.ships[GlobalVariables.mode.ships.keys()[-1]]:
+		print(\"Alert: can not add more ships (!!! need to add alert to user !!!)\")
+		return
+	
+	var ship_size=GlobalVariables.mode.get_ship()
+	
+	
+	var button_position = button.get_name().split(\";\", false, 1)
+	
+	if GlobalVariables.direcation==false:
+		if int(button_position[1])+ship_size<=GlobalVariables.mode.column_count:
+			GlobalVariables.mode.remove_ship()
+			var button_index : int = GlobalVariables.cells.find(button)
+			#print(button_index)
+			for i in range(button_index,button_index+ship_size):
+				GlobalVariables.cells[i].disabled=true
+			
+			GlobalVariables.horizontal_ships.append(GlobalVariables.cells.slice(button_index, button_index+ship_size-1))
+		else:
+			print(\"Alert: cant pick this place for ship position (!!! need to add alert to user !!!)\")
+	else:
+		if int(button_position[0])+ship_size<=GlobalVariables.mode.row_count:
+			GlobalVariables.mode.remove_ship()
+			var button_index : int = GlobalVariables.cells.find(button)
+			#print(button_index)
+			var ship_cells=[]
+			
+			for i in range(button_index,button_index+(ship_size*GlobalVariables.mode.row_count),GlobalVariables.mode.row_count):
+				ship_cells.append(GlobalVariables.cells[i])
+				GlobalVariables.cells[i].disabled=true
+
+			GlobalVariables.vertical_ships.append(ship_cells)
+			#
+			#button.disabled=true
+			#print(\"disable : \"+str(button.get_name()))
+		else:
+			print(\"Alert: cant pick this place for ship position (!!! need to add alert to user !!!)\")
+	
+
+
+
+func _on_Button_pressed():
+	# need to change condition so that array would full empty 
+	if !GlobalVariables.mode.ships[GlobalVariables.mode.ships.keys()[-1]]:
+		#print(GlobalVariables.cells)
+		
+		print(\"horizontal_ships : \",GlobalVariables.horizontal_ships)
+		print(\"vertical_ships : \",GlobalVariables.vertical_ships)
+		get_tree().change_scene(\"res://Scenes/Game_field.tscn\")
+	else:
+		#add alert to user
+		print(\"Alert: not all ships were placed (!!! need to add alert to user !!!)\")
+"
+
+[sub_resource type="GDScript" id=2]
+resource_name = "res://Scripts/cell_changes.gd"
+script/source = "extends Button
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_turn_pressed():
+	GlobalVariables.direcation = !GlobalVariables.direcation
+"
 
 [node name="place_ships" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = SubResource( 1 )
+
+[node name="battlefield" parent="." instance=ExtResource( 1 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -500.0
+margin_top = 150.0
+margin_right = 500.0
+margin_bottom = 1150.0
+
+[node name="submit" type="Button" parent="."]
+margin_left = 574.0
+margin_top = 1555.0
+margin_right = 1039.0
+margin_bottom = 1721.0
+text = "Save Places"
+
+[node name="turn" type="Button" parent="."]
+margin_left = 183.0
+margin_top = 1575.0
+margin_right = 440.0
+margin_bottom = 1699.0
+text = "Rotate"
+script = SubResource( 2 )
+
+[connection signal="pressed" from="submit" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="turn" to="turn" method="_on_turn_pressed"]

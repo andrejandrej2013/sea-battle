@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Cell_changes",
+"language": "GDScript",
+"path": "res://Scripts/cell_changes.gd"
+} ]
+_global_script_class_icons={
+"Cell_changes": ""
+}
+
 [application]
 
 config/name="Sea-battle"
